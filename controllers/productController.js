@@ -20,7 +20,7 @@ const addProduct = async (req, res) => {
 
 const getProduct = async (req, res) => {
     try {
-        const products = await product.find({ userID:req.user.id });
+        const products = await product.find();
         res.status(200).json(products);
     } catch (error) {
         res.status(500).json({ message: error.message });
@@ -49,9 +49,9 @@ const deleteproduct = async (req, res) => {
     try {
         const { id } = req.params;
 
-        const product = await product.findByIdAndDelete(id);
+        const data = await product.findByIdAndDelete(id);
 
-        if (!product) {
+        if (!data) {
             return res.status(404).json({ message: 'product not found' });
         }
 
